@@ -56,6 +56,7 @@ function Sidebar() {
   }, [response]);
 
   return (
+    <div className="container">
     <div className="sidebar">
       <div className="top">
         <div className="menu" onClick={() => settoggleSidebar((prev) => !prev)}>
@@ -112,6 +113,7 @@ function Sidebar() {
           {toggleSidebar ? <p>Settings</p> : null}
         </div>
       </div>
+    </div>
     </div>
   );
 }

@@ -11,7 +11,6 @@ import { FcLink } from "react-icons/fc";
 import { FaCircleArrowUp } from "react-icons/fa6";
 import { useState } from "react";
 import { useApi } from "../../context/Context";
-// import { ApiProvider } from "../../context/Context";
 
 function Main() {
   const [upload, setUplaod] = useState(false);
@@ -19,11 +18,11 @@ function Main() {
   const {
     postApiCall,
     postFileApiCall,
-    resultData,
+
     setResponse,
     inputRef,
     prev,
-    setPrev,
+    // setPrev,
     response,
     initState,
     setInitState,
@@ -34,7 +33,7 @@ function Main() {
   // const {response, setResponse} = ApiProvider();
   const [file, setFile] = useState(null);
 
-  const callApi = async () => {
+  const fetchAPI = async () => {
     try {
       const data = await postApiCall("http://localhost:9000/", {
         question: input,
@@ -50,7 +49,7 @@ function Main() {
     setFile(e.target.files[0]);
   };
 
-  const handleSubmit = async () => {
+  const fetchApiFile = async () => {
     try {
       const data = await postFileApiCall(
         "http://localhost:9000/file",
@@ -66,9 +65,12 @@ function Main() {
     }
   };
 
-  // const handleTextChange = (e) => {
-  //   setText(e.target.value);
-  // };
+  const handleSend = () => {
+    if(upload){
+      fetchApiFile()
+    }else fetchAPI()
+    setinput("");
+  };
 
   return (
     <div className="main">
@@ -85,10 +87,7 @@ function Main() {
           </div>
 
           {initState ? (
-            <>
-              {showResponse ? <p>{response}</p> : <p>{prev}</p>}
-             {/* <p>{response}</p> */}
-            </>
+            <div className="res">{showResponse ? <p>{response}</p> : <p>{prev}</p>}</div>
           ) : (
             <>
               <div className="cards">
@@ -116,57 +115,16 @@ function Main() {
             </>
           )}
         </>
-        {/* {initState ? (
-            <p>{prev}</p>
-          ) : (
-            
-            <div className="cards">
-              <>
-                <div className="card">
-                  <FaMapLocationDot />
 
-                  <p>Suggest beautiful place to visit in Japan</p>
-                </div>
-                <div className="card">
-                  <HiOutlineLightBulb />
-                  <p>briefly summarize this concept: Quantam Computing</p>
-                </div>
-                <div className="card">
-                  <FaRegMessage />
-                  <p>How to improve my communication skill in team meeting</p>
-                </div>
-                <div className="card">
-                  <IoCodeSlashSharp />
-                  <p>
-                    How can I improve the time and space complexity of following
-                    java code
-                  </p>
-                </div>
-              </>
-            </div>
-          )} */}
         <>
           <div className="result">
-            <div className="result-title">{/* <p>{recentPrompt}</p> */}</div>
-            <div className="result-data">
-              {/* {response && <p>{response}</p>} */}
-              {/* {loading ? ( */}
-              {/* <div className="loader">
-                  <hr />
-                  <hr />
-                  <hr />
-                </div> */}
-              {/* ) : ( */}
-              {/* <p dangerouslySetInnerHTML={{ __html: resultData }}></p> */}
-              {/* )} */}
-            </div>
+            <div className="result-data"></div>
           </div>
         </>
 
         <div className="main-bottom">
           {upload && (
             <div>
-              {/* <h4>upload a file</h4> */}
               <input type="file" onChange={handleFileChange} required />
             </div>
           )}
@@ -181,10 +139,7 @@ function Main() {
               placeholder="Enter a prompt here"
             />
             <div>
-              <FaCircleArrowUp
-                className="facircle"
-                onClick={upload ? handleSubmit : callApi}
-              />
+              <FaCircleArrowUp className="facircle" onClick={handleSend} />
             </div>
           </div>
           <p className="bottom-info">
