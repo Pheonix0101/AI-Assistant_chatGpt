@@ -40,7 +40,7 @@ function Sidebar() {
   };
 
   const handleClick =(id)=>{
-    setShowResponse((prev)=> !prev);
+    setShowResponse(false);
     prevMessage.map((item,index)=>{
       if(id === index){
         setInitState(true)

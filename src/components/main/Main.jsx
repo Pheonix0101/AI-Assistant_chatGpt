@@ -41,7 +41,7 @@ function Main() {
       });
       setInitState(true);
       setResponse(data);
-      setShowResponse(!showResponse);
+      setShowResponse(true);
     } catch (error) {
       console.error("Error calling API:", error);
     }
@@ -58,7 +58,7 @@ function Main() {
         input
       );
       setInitState(true);
-      setShowResponse(!showResponse);
+      setShowResponse(true);
       setResponse(data);
       console.log("Response:", data);
     } catch (error) {
@@ -87,9 +87,7 @@ function Main() {
           {initState ? (
             <>
               {showResponse ? <p>{response}</p> : <p>{prev}</p>}
-              {/* <button onClick={() => setShowResponse(!showResponse)}>
-            Toggle Response/Prev
-          </button> */}
+             {/* <p>{response}</p> */}
             </>
           ) : (
             <>
