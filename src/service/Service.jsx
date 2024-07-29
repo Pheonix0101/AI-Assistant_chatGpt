@@ -41,4 +41,15 @@ const getprevQuery = async (url) => {
   }
 };
 
-export { postApiCall, postFileApiCall,getprevQuery };
+
+const deleteuploadedFile = async (url) => {
+  try {
+    const response = await axios.delete(url);
+    return response.data;
+  } catch (error) {
+    console.error('Error calling API:', error);
+    throw error;
+  }
+};
+
+export { postApiCall, postFileApiCall,getprevQuery,deleteuploadedFile };

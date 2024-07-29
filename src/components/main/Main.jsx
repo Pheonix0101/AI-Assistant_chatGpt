@@ -9,16 +9,17 @@ import { FaMapLocationDot } from "react-icons/fa6";
 import { FcLink } from "react-icons/fc";
 
 import { FaCircleArrowUp } from "react-icons/fa6";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useApi } from "../../context/Context";
 
 function Main() {
   const [upload, setUplaod] = useState(false);
   const [input, setinput] = useState("");
+  const [isfetchApiFile, setisFetchApiFile] = useState(false);
   const {
     postApiCall,
     postFileApiCall,
-
+    deleteuploadedFile,
     setResponse,
     inputRef,
     prev,
@@ -60,10 +61,27 @@ function Main() {
       setShowResponse(true);
       setResponse(data);
       console.log("Response:", data);
+      setisFetchApiFile(true)
     } catch (error) {
       console.error("Error uploading file:", error);
     }
   };
+
+  const callDeleteApi = async () => {
+    try {
+      const data = await deleteuploadedFile('http://localhost:9000/delete');
+      console.log('Delete Response:', data);
+    } catch (error) {
+      console.error('Error calling delete API:', error);
+    }
+  };
+
+  useEffect(() => {
+    if (isfetchApiFile) {
+      callDeleteApi();
+      setisFetchApiFile(false); // Reset fetchApiFile to false after calling delete API
+    }
+  }, [isfetchApiFile]);
 
   const handleSend = () => {
     if(upload){

@@ -1,5 +1,5 @@
 import { createContext, useContext, useRef } from "react";
-import { postApiCall, postFileApiCall, getprevQuery } from "../service/Service";
+import { postApiCall, postFileApiCall, getprevQuery, deleteuploadedFile } from "../service/Service";
 import { useState } from "react";
 
 // Create a context
@@ -23,6 +23,7 @@ const ApiProvider = (props) => {
     postApiCall: (url, payload) => postApiCall(url, payload),
     postFileApiCall: (url, file, text) => postFileApiCall(url, file, text),
     getprevQuery: (url) => getprevQuery(url),
+    deleteuploadedFile: (url) => deleteuploadedFile(url),
     response,
     setResponse,
     prevMessage,
