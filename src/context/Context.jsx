@@ -2,10 +2,10 @@ import { createContext, useContext, useRef } from "react";
 import { postApiCall, postFileApiCall, getprevQuery, deleteuploadedFile } from "../service/Service";
 import { useState } from "react";
 
-// Create a context
+
 const ApiContext = createContext();
 
-// Create a provider component
+
 const ApiProvider = (props) => {
   const [response, setResponse] = useState("");
 
@@ -46,7 +46,7 @@ const ApiProvider = (props) => {
   );
 };
 
-// Custom hook to use the API context
+
 const useApi = () => {
   return useContext(ApiContext);
 };
